@@ -1,0 +1,28 @@
+[Unit]
+Description=Azure SQL Edge
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=mcr.microsoft.com/azure-sql-edge:latest
+Network=host
+AddCapability=SYS_PTRACE
+Environment=ACCEPT_EULA=1
+Environment=MSSQL_SA_PASSWORD=yourStrong(!)Password
+ContainerName=azuresqledge
+#Volume=/var/opt/mssql/data:/var/opt/mssql/data:Z
+#Volume=/var/opt/mssql/log:/var/opt/mssql/log:Z
+#Volume=/var/opt/mssql/secrets:/var/opt/mssql/secrets:Z
+Volume=sql-edge.volume:/var/opt/mssql:Z
+PodmanArgs=--privileged
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target default.target
+
+[Service]
+# Restart service when sleep finishes
+Restart=always
+# Extend Timeout to allow time to pull the image
+TimeoutStartSec=900
+
