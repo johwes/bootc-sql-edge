@@ -1,3 +1,12 @@
+The repo containes an example of creating a bootc container with an embedded container image.
+The embeeded container in this example is Azure SQL Edge Container,
+https://learn.microsoft.com/en-us/azure/azure-sql-edge/disconnected-deployment
+
+The container image is here,
+```
+quay.io/jwesterl/bootc-azuresqledge:latest
+```
+
 Build using,
 ```
 podman build --cap-add SYS_ADMIN -f Containerfile -t quay.io/jwesterl/bootc-azuresqledge .
